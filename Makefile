@@ -47,7 +47,4 @@ check:
 run: install
 	@$(TARGET)
 
-docker-build:
-        docker run --rm -it -v "$(GOPATH)":/go -w /go/src/github.com/bera/concurhttpserver golang:latest go build -o "$(TARGET)" -v    
-
 
