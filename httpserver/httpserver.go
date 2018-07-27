@@ -1,10 +1,11 @@
 package httpserver
 
 import (
-	"fmt"
+	"io"
 	"net/http"
 )
 
-func PlayerServer(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "20")
+func ItemServer(w http.ResponseWriter, r *http.Request) {
+	//fmt.Fprint(w, "20")
+	io.WriteString(w, "20")
 }

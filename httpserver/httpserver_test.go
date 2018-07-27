@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-func TestGETPlayers(t *testing.T) {
-	t.Run("returns Pepper's score", func(t *testing.T) {
-		request, _ := http.NewRequest(http.MethodGet, "/players/Pepper", nil)
+func TestGETItems(t *testing.T) {
+	t.Run("returns XPTO's score", func(t *testing.T) {
+		request, _ := http.NewRequest(http.MethodGet, "/items/XPTO", nil)
 		response := httptest.NewRecorder()
-		PlayerServer(response, request)
+		ItemServer(response, request)
 		got := response.Body.String()
 		want := "20"
 		if got != want {
