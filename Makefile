@@ -4,6 +4,9 @@ SHELL := /bin/bash
 TARGET := $(shell echo $${PWD\#\#*/})
 .DEFAULT_GOAL: $(TARGET)
 
+# Package files for test
+PKGS := $(shell go list ./...)
+
 # These will be provided to the target
 VERSION := 1.0.0
 BUILD := `git rev-parse HEAD`
@@ -14,7 +17,7 @@ LDFLAGS=-ldflags "-X=main.Version=$(VERSION) -X=main.Build=$(BUILD)"
 # go source files, ignore vendor directory
 SRC = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 
-.PHONY: all build clean install uninstall fmt simplify check run
+.PHONY: all build clean install test uninstall fmt simplify check run
 
 all: check install
 
@@ -33,9 +36,11 @@ install:
 uninstall: clean
 	@rm -f $$(which ${TARGET})
 
+test:
+	@go test $(PKGS)
+
 fmt:
 	@gofmt -l -w $(SRC)
-
 
 simplify:
 	@gofmt -s -l -w $(SRC)
@@ -45,7 +50,9 @@ check:
 	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done
 	@go tool vet ${SRC}
 
+
 run: install
 	@$(TARGET)
+
 
 
