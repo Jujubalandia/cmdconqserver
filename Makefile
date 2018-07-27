@@ -36,6 +36,7 @@ uninstall: clean
 fmt:
 	@gofmt -l -w $(SRC)
 
+
 simplify:
 	@gofmt -s -l -w $(SRC)
 
